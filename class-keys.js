@@ -37,10 +37,30 @@ Keys = function Keys( entity ){
 		@end-meta-configuration
 	*/
 	if( this instanceof Key ){
-		this.entity = entity;
+		this.initialize( entity );
+		this.construct( );
 	}else{
 		return new Keys( entity );
 	}
+};
+
+Keys.prototype.initialize = function initialize( entity ){
+	this.entity = entity;
+};
+
+Keys.prototype.construct = function construct( ){
+
+};
+
+Keys.prototype.bindKeys = function  bindKeys( ){
+	/*:
+		@method-configuration:
+			{
+				"isPrivate": true
+			}
+		@end-method-configuration
+	*/
+
 };
 
 Keys.prototype.getAllKeyCount = function getAllKeyCount( ){
@@ -85,13 +105,6 @@ Keys.prototype.getEnumerableKeys = function getEnumerableKeys( ){
 Keys.prototype.getHiddenKeys = function getHiddenKeys( ){
 	var enumerableKeys = this.getEnumerableKeys( );
 	var allKeys = this.getAllKeys( );
-};
-
-Keys.prototype.getMethodKeys = function getMethodKeys( ){
-
-};
-
-Keys.prototype.getPropertyKeys = function getPropertyKeys( ){
 
 };
 
@@ -101,5 +114,19 @@ Keys.prototype.getMappedKeys = function getMappedKeys( ){
 			Returns all enumerable keys wrapped as Key objects.
 		@end-method-documentation
 	*/
+	var enumerableKeys = this.getEnumerableKeys( );
+	var mappedKeys = [ ];
+	for( var index = 0; index < enumerableKeys.length; index++ ){
+		mappedKeys.push( Key( this.entity, enumerableKeys[ index ] ) );
+	}	
+	this.mappedKeys = mappedKeys;
+	return this.mappedKeys;
+};
+
+Keys.prototype.getMethodKeys = function getMethodKeys( ){
+
+};
+
+Keys.prototype.getPropertyKeys = function getPropertyKeys( ){
 
 };
